@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "declaration": true,
+    "noEmit": false,
+    "moduleResolution": "bundler"
+  },
+  "include": ["generated/**/*"],
+  "exclude": ["node_modules", "out", "cache", "lib", "dist", "wagmi.config.ts"]
+}

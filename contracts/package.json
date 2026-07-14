@@ -1,0 +1,28 @@
+{
+  "name": "contracts",
+  "version": "0.0.1",
+  "main": "generated/index.ts",
+  "types": "generated/index.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "forge build && bun run generate-types",
+    "dev": "bun run build --watch",
+    "generate-types": "wagmi generate && tsc",
+    "test": "forge test",
+    "deploy:local": "forge script script/Deploy.s.sol --rpc-url http://localhost:8545 --broadcast",
+    "deploy:sepolia": "forge script script/Deploy.s.sol --rpc-url sepolia --broadcast --verify"
+  },
+  "dependencies": {
+    "shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@wagmi/cli": "^2.1.15",
+    "typescript": "^5.7.3",
+    "viem": "^2.21.1"
+  }
+}
