@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import type { ApiResponse } from "shared/dist";
+import type { ApiResponse } from "../../shared/src/types";
 import { createPublicClient, http } from 'viem'
 import { sepolia } from 'viem/chains'
 import { counterAbi } from 'contracts'
@@ -12,13 +12,13 @@ const client = createPublicClient({
 
 export const app = new Hono()
 
-.use(cors())
+app.use(cors())
 
-.get("/", (c) => {
+app.get("/", (c) => {
 	return c.text("Hello Hono!");
 })
 
-.get("/hello", async (c) => {
+app.get("/hello", async (c) => {
 	const data: ApiResponse = {
 		message: "Hello BHVR!",
 		success: true,
@@ -27,7 +27,7 @@ export const app = new Hono()
 	return c.json(data, { status: 200 });
 });
 
-.get('/contracts/:address/counter', async (c) => {
+app.get('/contracts/:address/counter', async (c) => {
   try {
     const address = c.req.param('address') as `0x${ string }`
 

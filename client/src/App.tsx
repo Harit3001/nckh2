@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import beaver from './assets/beaver.svg'
-import { hcWithType } from 'server/dist/client'
+import type { ApiResponse } from '../../shared/src/types'
 import { createPublicClient, http } from 'viem'
 import { sepolia } from 'viem/chains'
 import { counterAbi } from 'contracts'
@@ -9,26 +9,25 @@ import './App.css'
 const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3000"
 const CONTRACT_ADDRESS = "0x742d35Cc6634C0532925a3b8D404fBaF464DfD85"
 
-const client = hcWithType(SERVER_URL);
 const viemClient = createPublicClient({
   chain: sepolia,
   transport: http()
 })
 
-type ResponseType = Awaited<ReturnType<typeof client.hello.$get>>;
+type ResponseType = ApiResponse;
 
 function App() {
-  const [data, setData] = useState<Awaited<ReturnType<ResponseType["json"]>> | undefined>()
+  const [data, setData] = useState<ResponseType | undefined>()
   const [counterValue, setCounterValue] = useState<bigint | undefined>()
 
   async function sendRequest() {
     try {
-      const res = await client.hello.$get()
+      const res = await fetch(`${SERVER_URL}/hello`)
       if (!res.ok) {
         console.log("Error fetching data")
         return
       }
-      const data = await res.json()
+      const data = (await res.json()) as ResponseType
       setData(data)
     } catch (error) {
       console.log(error)

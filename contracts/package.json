@@ -5,8 +5,8 @@
   "types": "generated/index.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./generated/index.ts",
+      "types": "./generated/index.ts"
     }
   },
   "scripts": {
