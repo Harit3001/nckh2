@@ -1,0 +1,36 @@
+model MedicalRecord {
+  id         Int     @id @default(autoincrement())
+  patientId  Int     @map("patient_id")
+  doctorId   Int     @map("doctor_id")
+  hospitalId Int     @map("hospital_id")
+
+  recordHash String @map("record_hash") @db.VarChar(128)
+  ipfsCid    String @map("ipfs_cid") @db.VarChar(255)
+
+  txHash      String? @unique @map("tx_hash") @db.VarChar(100)
+  blockNumber Int?    @map("block_number")
+
+  recordType String @map("record_type") @db.VarChar(100)
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  createdBy Int? @map("created_by")
+  updatedBy Int? @map("updated_by")
+  deletedBy Int? @map("deleted_by")
+
+  patient  Patient  @relation(fields: [patientId], references: [id])
+  doctor   Doctor   @relation(fields: [doctorId], references: [id])
+  hospital Hospital @relation(fields: [hospitalId], references: [id])
+
+  @@index([patientId])
+  @@index([doctorId])
+  @@index([hospitalId])
+  @@index([patientId, createdAt])
+  @@index([doctorId, createdAt])
+  @@index([hospitalId, createdAt])
+  @@index([recordType])
+  @@index([blockNumber])
+  @@map("medical_records")
+}

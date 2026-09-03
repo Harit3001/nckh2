@@ -4,7 +4,11 @@ import type { ApiResponse } from "../../shared/src/types";
 import { createPublicClient, http } from 'viem'
 import { sepolia } from 'viem/chains'
 import { counterAbi } from 'contracts'
-
+import authRoutes from "./routes/auth.routes";
+import docsRoutes from "./routes/docs.routes";
+import adminRoutes from "./routes/admin.routes";
+import { sendMail } from "./configs/mail";
+import type { Context } from "hono";
 const client = createPublicClient({
   chain: sepolia,
   transport: http()
@@ -13,6 +17,32 @@ const client = createPublicClient({
 export const app = new Hono()
 
 app.use(cors())
+
+app.onError((err, c) => {
+  console.error("Global error handler:", err);
+  
+  let status = 500;
+  let message = "Internal Server Error";
+  
+  if (err instanceof Error) {
+    message = err.message;
+    
+    if ("status" in err && typeof (err as any).status === "number") {
+      status = (err as any).status;
+    }
+  }
+
+  console.error(`Returning ${status} - ${message}`);
+
+  return c.json(
+    {
+      success: false,
+      message,
+      status,
+    },
+    status as any,
+  );
+});
 
 app.get("/", (c) => {
 	return c.text("Hello Hono!");
@@ -50,5 +80,12 @@ app.get('/contracts/:address/counter', async (c) => {
     }, 500)
   }
 })
+
+// routes
+app.route("/docs", docsRoutes);
+
+app.route("/auth", authRoutes);
+
+app.route("/admin", adminRoutes);
 
 export default app;

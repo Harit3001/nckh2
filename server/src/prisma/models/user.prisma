@@ -1,0 +1,26 @@
+model User {
+  id            Int      @id @default(autoincrement())
+  email         String   @unique @db.VarChar(255)
+  fullName      String   @map("full_name") @db.VarChar(255)
+  passwordHash  String   @map("password_hash")
+  role          String   @db.VarChar(30)
+  walletAddress String?  @unique @map("wallet_address") @db.VarChar(42)
+  hospitalId    Int?     @map("hospital_id")
+  status        String   @default("PENDING_APPROVAL")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  hospital        Hospital?      @relation(fields: [hospitalId], references: [id])
+  patient         Patient?
+  doctor          Doctor?
+  approvedDoctors Doctor[]       @relation("DoctorApprover")
+  refreshTokens   RefreshToken[]
+  notifications   Notification[]
+  auditLogs       AuditLog[]
+  passwordResetTokens PasswordResetToken[]
+
+  @@index([hospitalId])
+  @@index([role])
+  @@index([status])
+  @@index([hospitalId, role])
+  @@map("users")
+}

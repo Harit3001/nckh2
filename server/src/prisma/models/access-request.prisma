@@ -1,0 +1,32 @@
+model AccessRequest {
+  id        Int @id @default(autoincrement())
+  doctorId  Int @map("doctor_id")
+  patientId Int @map("patient_id")
+
+  reason String
+  scope  String
+  status String @db.VarChar(30)
+
+  requestedAt DateTime  @default(now()) @map("requested_at")
+  respondedAt DateTime? @map("responded_at")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  createdBy Int? @map("created_by")
+  updatedBy Int? @map("updated_by")
+  deletedBy Int? @map("deleted_by")
+
+  doctor  Doctor  @relation(fields: [doctorId], references: [id])
+  patient Patient @relation(fields: [patientId], references: [id])
+
+  @@index([doctorId])
+  @@index([patientId])
+  @@index([status])
+  @@index([requestedAt])
+  @@index([patientId, status])
+  @@index([doctorId, status])
+  @@index([doctorId, patientId])
+  @@map("access_requests")
+}

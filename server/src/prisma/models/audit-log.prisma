@@ -1,0 +1,32 @@
+model AuditLog {
+  id         Int    @id @default(autoincrement())
+  actorId    Int    @map("actor_id")
+  action     String @db.VarChar(100)
+  targetType String @map("target_type") @db.VarChar(50)
+  targetId   Int    @map("target_id")
+
+  txHash    String? @unique @map("tx_hash") @db.VarChar(100)
+  ipAddress String? @map("ip_address") @db.VarChar(45)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  createdBy Int? @map("created_by")
+  updatedBy Int? @map("updated_by")
+  deletedBy Int? @map("deleted_by")
+
+  metadata String?
+
+  actor User @relation(fields: [actorId], references: [id])
+
+  @@index([actorId])
+  @@index([action])
+  @@index([targetType])
+  @@index([targetId])
+  @@index([createdAt])
+  @@index([targetType, targetId])
+  @@index([actorId, createdAt])
+  @@index([action, createdAt])
+  @@map("audit_logs")
+}

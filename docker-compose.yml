@@ -3,14 +3,22 @@ services:
     build:
       context: .
       dockerfile: server/Dockerfile
+    container_name: benh-an-blockchain-server
+    restart: unless-stopped
     ports:
       - "3000:3000"
-    environment:
-      - NODE_ENV=production
-
+    env_file:
+      - server/.env
   client:
     build:
       context: .
       dockerfile: client/Dockerfile
+    container_name: benh-an-blockchain-client
+    restart: unless-stopped
     ports:
       - "80:80"
+    depends_on:
+      - server
+
+volumes:
+  postgres_data:

@@ -1,0 +1,9 @@
+model WalletNonce {
+  walletAddress String   @id 
+  nonce         String
+  expiresAt     DateTime
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt 
+
+  @@map("wallet_nonces") 
+}

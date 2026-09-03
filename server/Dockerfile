@@ -12,8 +12,8 @@ RUN bun install --ignore-scripts
 COPY . .
 
 RUN bun run build:shared
+RUN cd server && bunx prisma generate
 RUN cd server && bun run build
-
 FROM oven/bun:latest AS runtime
 
 WORKDIR /app
@@ -23,6 +23,7 @@ COPY --from=builder /app/bun.lock .
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/contracts ./contracts
 COPY --from=builder /app/shared ./shared
+COPY --from=builder /app/server ./server
 COPY --from=builder /app/dist ./dist
 
-CMD ["bun", "dist/server/src/index.js"]
+CMD ["sh", "-c", "cd server && bunx prisma migrate dev --name init && cd .. && bun dist/server/src/index.js"]

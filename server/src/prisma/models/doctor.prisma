@@ -1,0 +1,30 @@
+model Doctor {
+  id          Int       @id @default(autoincrement())
+  userId      Int       @unique @map("user_id")
+  doctorCode  String    @unique @map("doctor_code") @db.VarChar(100)
+  speciality  String    @db.VarChar(150)
+  hospitalId  Int       @map("hospital_id")
+  approvedAt  DateTime? @map("approved_at")
+  approveBy   Int?      @map("approved_by")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  createdBy Int? @map("created_by")
+  updatedBy Int? @map("updated_by")
+  deletedBy Int? @map("deleted_by")
+
+  user     User     @relation(fields: [userId], references: [id])
+  hospital Hospital @relation(fields: [hospitalId], references: [id])
+  approver User?    @relation("DoctorApprover", fields: [approveBy], references: [id])
+
+  medicalRecords MedicalRecord[]
+  accessRequests AccessRequest[]
+
+  @@index([hospitalId])
+  @@index([hospitalId, speciality])
+  @@index([approvedAt])
+  @@index([approveBy])
+  @@map("doctors")
+}

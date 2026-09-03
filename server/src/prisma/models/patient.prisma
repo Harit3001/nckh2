@@ -1,0 +1,27 @@
+model Patient {
+  id             Int       @id @default(autoincrement())
+  userId         Int       @unique @map("user_id")
+  phid           String    @unique @db.VarChar(100)
+  dob            DateTime  @db.Date
+  bloodType      String?   @map("blood_type") @db.VarChar(10)
+  allergyInfo    String?   @map("allergy_info")
+  nationalIdHash String    @unique @map("national_id_hash") @db.VarChar(128)
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  createdBy Int? @map("created_by")
+  updatedBy Int? @map("updated_by")
+  deletedBy Int? @map("deleted_by")
+
+  user              User               @relation(fields: [userId], references: [id])
+  medicalRecords    MedicalRecord[]
+  accessPermissions AccessPermission[]
+  accessRequests    AccessRequest[]
+
+  @@index([dob])
+  @@index([bloodType])
+  @@index([createdAt])
+  @@map("patients")
+}

@@ -1,0 +1,25 @@
+model IndexerState {
+  id              Int    @id @default(autoincrement())
+  chainId         Int    @map("chain_id")
+  contractAddress String @map("contract_address") @db.VarChar(42)
+
+  lastBlock   Int      @map("last_block")
+  lastSyncedAt DateTime @map("last_synced_at")
+
+  status Boolean @default(true)
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  createdBy Int? @map("created_by")
+  updatedBy Int? @map("updated_by")
+  deletedBy Int? @map("deleted_by")
+
+  @@unique([chainId, contractAddress])
+  @@index([chainId])
+  @@index([status])
+  @@index([lastBlock])
+  @@index([lastSyncedAt])
+  @@map("indexer_state")
+}
