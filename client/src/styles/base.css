@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+:root {
+  --paper: #f3f5f1;
+  --paper-2: #e3e5de;
+
+  --ink: #1b1f23;
+  --ink-soft: #565d62;
+
+  --blue: #2b4c7e;
+  --blue-bright: #3e6fb0;
+
+  --green: #3f6644;
+  --green-bright: #4c8c5e;
+
+  --rust: #c1440e;
+  --amber: #d9a441;
+
+  --blue-tint: #e1ebf6;
+  --green-tint: #e4f0e6;
+  --amber-tint: #fbf0d9;
+  --rust-tint: #f8e2d6;
+
+  --line: #b9bdb4;
+  --line-strong: #1b1f23;
+
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+
+  --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 16px 35px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 30px 70px rgba(0, 0, 0, 0.12);
+
+  --transition: 0.3s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: linear-gradient(180deg,
+      #f3f5f1 0%,
+      var(--paper) 260px,
+      var(--paper) 100%);
+
+  color: var(--ink);
+  font-family: "IBM Plex Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: -0.01em;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue-bright);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
