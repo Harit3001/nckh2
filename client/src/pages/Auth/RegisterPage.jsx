@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Register from "../../components/Register.jsx";
+import RegisterForm from "../../components/auth/RegisterForm.jsx";
 import { useAuth } from "../../context/AuthContext.jsx";
 
 function RegisterPage() {
@@ -228,7 +228,7 @@ function RegisterPage() {
     };
 
     return (
-        <Register
+        <RegisterForm
             role={role}
             onRoleChange={handleRoleChange}
             fullName={

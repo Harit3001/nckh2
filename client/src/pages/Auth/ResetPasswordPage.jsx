@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { usePrivy } from "@privy-io/react-auth";
 import { useAuth } from "../../context/AuthContext";
 
 export default function ResetPasswordPage() {
     const navigate = useNavigate();
     const location = useLocation();
     const { updatePassword } = useAuth();
+    const { setWalletPassword, ready: privyReady, authenticated: privyAuthenticated } = usePrivy();
 
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -24,14 +26,26 @@ export default function ResetPasswordPage() {
 
     const email = sessionStorage.getItem("resetEmail") || "";
 
+    const handleSetPrivyPassword = () => {
+        try {
+            if (setWalletPassword) {
+                setWalletPassword();
+            }
+        } catch (err) {
+            console.error("Privy setWalletPassword error:", err);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         setError("");
 
-        if (!email) {
+        const otpVerified = sessionStorage.getItem("otpVerified") === "true";
+
+        if (!email || !otpVerified) {
             setError(
-                "Phiên đặt lại mật khẩu không hợp lệ. Vui lòng xác thực OTP lại!"
+                "Phiên đặt lại mật khẩu không hợp lệ hoặc chưa xác thực OTP. Vui lòng quay lại và thực hiện lại!"
             );
             return;
         }
@@ -64,6 +78,15 @@ export default function ResetPasswordPage() {
                 password.trim(),
                 confirmPassword.trim()
             );
+
+            // Tự động gọi Privy setWalletPassword nếu khả dụng và được ủy quyền
+            if (privyReady && privyAuthenticated && typeof setWalletPassword === "function") {
+                try {
+                    await setWalletPassword();
+                } catch (privyErr) {
+                    console.warn("Privy wallet password update skipped or cancelled:", privyErr);
+                }
+            }
 
             setSubmitted(true);
 
@@ -106,6 +129,17 @@ export default function ResetPasswordPage() {
                                 đã được cập nhật thành công.
                             </p>
                         </div>
+
+                        {privyReady && typeof setWalletPassword === "function" && (
+                            <button
+                                type="button"
+                                className="reset-password-button"
+                                style={{ marginBottom: "12px", background: "linear-[#676FFF,#4B52C0]" }}
+                                onClick={handleSetPrivyPassword}
+                            >
+                                🔐 Cập nhật mật khẩu ví Privy
+                            </button>
+                        )}
 
                         <button
                             type="button"
@@ -165,6 +199,17 @@ export default function ResetPasswordPage() {
                                 ? "Đang cập nhật..."
                                 : "Cập nhật mật khẩu"}
                         </button>
+
+                        {privyReady && typeof setWalletPassword === "function" && (
+                            <button
+                                type="button"
+                                className="reset-password-button"
+                                style={{ marginTop: "10px", background: "rgba(103, 111, 255, 0.15)", border: "1px solid #676FFF", color: "#676FFF" }}
+                                onClick={handleSetPrivyPassword}
+                            >
+                                🔒 Đổi mật khẩu ví Privy (usePrivy)
+                            </button>
+                        )}
                     </>
                 )}
 
@@ -177,3 +222,4 @@ export default function ResetPasswordPage() {
         </div>
     );
 }
+

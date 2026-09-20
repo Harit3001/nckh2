@@ -5,14 +5,8 @@ export const EIP712_DOMAIN = {
 
 export const EIP712_TYPES = {
   Login: [
-    {
-      name: "wallet",
-      type: "address",
-    },
-    {
-      name: "nonce",
-      type: "string",
-    },
+    { name: "wallet", type: "address" },
+    { name: "nonce", type: "string" },
   ],
 };
 

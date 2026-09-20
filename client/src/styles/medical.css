@@ -1,0 +1,1125 @@
+/* =========================================================
+   HIS Nội trú — giao diện theo màn hình gốc (nền xanh nhạt,
+   nút viền xám, tab xanh dương, dòng chọn vàng).
+   ========================================================= */
+.medical-app {
+  --bg: #eaf1fb;
+  --card: #ffffff;
+  --line: #dfe5ee;
+  --line-strong: #c9d2e0;
+  --text: #24313f;
+  --muted: #7b8794;
+  --blue: #1f8bff;
+  --blue-deep: #2f6fc4;
+  --blue-soft: #dbe8fb;
+  --orange: #e8730c;
+  --green: #22a447;
+  --red: #c8222b;
+  --yellow: #f4f52d;
+  --yellow-soft: #fbea8a;
+  --ok-bg: #4fdc4f;
+  --disabled: #a9b2be;
+  --radius: 8px;
+  --font: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --fs: 14px;
+
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  font: var(--fs)/1.4 var(--font);
+  color: var(--text);
+  background: var(--bg);
+}
+
+.medical-app * {
+  box-sizing: border-box;
+}
+
+.medical-app button {
+  font: inherit;
+  cursor: pointer;
+  color: inherit;
+}
+
+.medical-app button:disabled {
+  cursor: not-allowed;
+}
+
+.medical-app h2,
+.medical-app h3,
+.medical-app h4,
+.medical-app p {
+  margin: 0;
+}
+
+.medical-app code {
+  font-size: 12px;
+  color: var(--blue-deep);
+}
+
+.medical-app :focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 1px;
+}
+
+/* ---------- Khung ứng dụng ---------- */
+.medical-app .workspace {
+  display: grid;
+  grid-template-columns: 420px minmax(0, 1fr);
+  gap: 12px;
+  padding: 0 12px 12px;
+  flex: 1;
+  min-height: 0;
+}
+
+.medical-app .card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 2px rgba(20, 40, 80, .08);
+}
+
+.medical-app .muted {
+  color: var(--muted);
+}
+
+.medical-app .muted-orange {
+  color: var(--orange);
+}
+
+.medical-app .mt {
+  margin-top: 12px;
+}
+
+.medical-app .empty {
+  padding: 18px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.medical-app .empty--lg {
+  padding: 80px 18px;
+  font-size: 16px;
+}
+
+.medical-app .req {
+  color: var(--red);
+  margin-right: 2px;
+}
+
+.medical-app .c-blue {
+  color: var(--blue-deep);
+}
+
+.medical-app .c-orange {
+  color: var(--orange);
+}
+
+.medical-app .c-green {
+  color: var(--green);
+}
+
+.medical-app .banner {
+  margin: 0 12px 8px;
+  padding: 8px 12px;
+  background: #fff4d6;
+  border: 1px solid #f0d58a;
+  border-radius: 6px;
+  color: #7a5a00;
+}
+
+.medical-app .toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  background: #24313f;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 6px;
+  z-index: 999;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
+}
+
+/* ---------- Thanh trên ---------- */
+.medical-app .topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 16px;
+  background: var(--blue-soft);
+}
+
+.medical-app .topbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.medical-app .logo {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 30px;
+  border-radius: 6px;
+  background: var(--blue-deep);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.medical-app .topbar__search {
+  flex: 0 1 420px;
+  padding: 6px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.medical-app .topbar__user {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--blue-deep);
+}
+
+.medical-app .avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #aab4c3;
+}
+
+/* ---------- Thanh chức năng ---------- */
+.medical-app .toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+}
+
+.medical-app .toolbar__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.medical-app .toolbar__dept {
+  text-align: right;
+  color: var(--blue-deep);
+  display: grid;
+}
+
+.medical-app .toolbar__dept strong {
+  font-size: 15px;
+}
+
+.medical-app .btn {
+  padding: 7px 14px;
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.medical-app .btn:hover:not(:disabled) {
+  background: #f3f7fd;
+  border-color: var(--blue);
+}
+
+.medical-app .btn:disabled {
+  color: var(--disabled);
+  background: #f2f4f7;
+}
+
+.medical-app .btn--primary {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+.medical-app .btn--primary:hover:not(:disabled) {
+  background: #0f78e8;
+}
+
+.medical-app .btn--primary-outline {
+  border-color: var(--blue);
+  color: var(--blue-deep);
+}
+
+.medical-app .btn--sm {
+  padding: 2px 10px;
+}
+
+.medical-app .icon-btn {
+  border: 0;
+  background: transparent;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+.medical-app .icon-btn:hover:not(:disabled) {
+  background: #eef2f8;
+}
+
+.medical-app .icon-btn--danger {
+  color: var(--red);
+}
+
+.medical-app .icon-btn:disabled {
+  color: var(--disabled);
+}
+
+/* ---------- Form ---------- */
+.medical-app .input {
+  width: 100%;
+  min-width: 0;
+  padding: 5px 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: #fff;
+  font: inherit;
+  color: var(--text);
+}
+
+.medical-app .input[readonly],
+.medical-app .input:disabled {
+  background: #f5f7fa;
+  color: #59636f;
+}
+
+.medical-app .input--sm {
+  width: 96px;
+}
+
+.medical-app .input--xs {
+  width: 56px;
+  text-align: center;
+}
+
+.medical-app .w-sm {
+  width: 110px;
+  flex: none;
+}
+
+.medical-app .textarea {
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.medical-app .num {
+  text-align: right;
+}
+
+.medical-app .check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.medical-app .field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  min-width: 0;
+}
+
+.medical-app .field__label {
+  flex: none;
+  color: #4a5563;
+  white-space: nowrap;
+}
+
+.medical-app .field__control {
+  flex: 1;
+  display: flex;
+  gap: 6px;
+  min-width: 0;
+}
+
+.medical-app .range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.medical-app .grid {
+  display: grid;
+  gap: 0 14px;
+}
+
+.medical-app .grid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.medical-app .grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.medical-app .grid--5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.medical-app .span-2 {
+  grid-column: span 2;
+}
+
+.medical-app .span-3 {
+  grid-column: span 3;
+}
+
+.medical-app .span-5 {
+  grid-column: span 5;
+}
+
+.medical-app .section-title {
+  margin: 8px 0 10px;
+  color: var(--blue);
+  font-size: 17px;
+  font-weight: 500;
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--blue);
+}
+
+.medical-app .section-title--sm {
+  font-size: 14px;
+  border: 0;
+  margin: 12px 0 6px;
+  color: var(--blue-deep);
+  font-weight: 600;
+}
+
+.medical-app .kv {
+  margin-bottom: 8px;
+}
+
+/* ---------- Tab ---------- */
+.medical-app .tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  border-bottom: 2px solid var(--blue);
+}
+
+.medical-app .tabs__item {
+  border: 0;
+  background: transparent;
+  padding: 9px 12px;
+  border-radius: 6px 6px 0 0;
+  color: #33475f;
+}
+
+.medical-app .tabs__item:hover {
+  background: #eef4fd;
+}
+
+.medical-app .tabs__item.is-active {
+  background: var(--blue);
+  color: #fff;
+}
+
+.medical-app .tabs--sub {
+  border-bottom: 1px solid var(--line);
+}
+
+.medical-app .tabs--sub .tabs__item {
+  padding: 7px 14px;
+  font-size: 13px;
+}
+
+.medical-app .tabs--sub .tabs__item.is-active {
+  background: var(--blue);
+}
+
+.medical-app .tabs--pill {
+  border-bottom: 1px solid var(--line);
+  margin: 8px 0;
+}
+
+.medical-app .tabs--pill .tabs__item {
+  padding: 8px 18px;
+}
+
+.medical-app .tabs--pill .tabs__item.is-active {
+  background: transparent;
+  color: var(--blue);
+  box-shadow: inset 0 -3px 0 var(--blue);
+  border-radius: 0;
+}
+
+/* ---------- Bảng ---------- */
+.medical-app .table-wrap {
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.medical-app .table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.medical-app .table th {
+  position: sticky;
+  top: 0;
+  background: #f7f9fc;
+  text-align: left;
+  font-weight: 600;
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--line-strong);
+  white-space: nowrap;
+}
+
+.medical-app .table td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+
+.medical-app .table tbody tr:nth-child(even) {
+  background: #fafbfd;
+}
+
+.medical-app .table tbody tr:hover {
+  background: #f0f6ff;
+}
+
+.medical-app .table tr.is-selected {
+  background: var(--yellow-soft) !important;
+}
+
+.medical-app .table--dense th,
+.medical-app .table--dense td {
+  padding: 6px 8px;
+}
+
+.medical-app .dot {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.medical-app .dot--ok {
+  background: var(--green);
+}
+
+.medical-app .dot--wait {
+  background: var(--orange);
+}
+
+.medical-app .tag {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.medical-app .tag--bh {
+  background: #3f8ce8;
+}
+
+.medical-app .tag--vp {
+  background: #c47a1c;
+}
+
+.medical-app .tag--cc {
+  background: #b3121c;
+}
+
+/* ---------- Sidebar bệnh nhân ---------- */
+.medical-app .sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+  min-height: 0;
+}
+
+.medical-app .sidebar__filters .field__label {
+  width: 92px;
+  text-align: right;
+}
+
+.medical-app .patient-list {
+  flex: 1;
+  min-height: 120px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.medical-app .patient-row {
+  cursor: pointer;
+}
+
+.medical-app .patient-name {
+  color: var(--orange);
+  font-weight: 500;
+}
+
+.medical-app .patient-row.is-current,
+.medical-app .patient-row.is-current:hover {
+  background: var(--yellow) !important;
+}
+
+.medical-app .patient-row.is-current .patient-name {
+  color: #3b2a00;
+  font-weight: 700;
+}
+
+.medical-app .sidebar__pager {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.medical-app .sidebar__pager a {
+  color: var(--blue);
+}
+
+.medical-app .sidebar__counts {
+  display: flex;
+  gap: 22px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+/* ---------- Khu chi tiết ---------- */
+.medical-app .main {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 16px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.medical-app .main__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.medical-app .main__panel {
+  flex: 1;
+  overflow: auto;
+  padding-top: 12px;
+}
+
+.medical-app .patient-head {
+  display: flex;
+  gap: 22px;
+  align-items: flex-start;
+  text-align: right;
+  color: var(--blue-deep);
+  font-size: 13px;
+}
+
+.medical-app .patient-head__name {
+  font-weight: 700;
+}
+
+.medical-app .patient-head__badge {
+  display: grid;
+  text-align: center;
+  font-weight: 700;
+  color: #111;
+  min-width: 34px;
+}
+
+.medical-app .patient--compact,
+.medical-app .patient-head--compact {
+  margin-left: auto;
+}
+
+/* ---------- Tab Thông tin ---------- */
+.medical-app .split {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 0;
+}
+
+.medical-app .split>section:first-child {
+  padding-right: 16px;
+  border-right: 2px solid var(--blue);
+}
+
+.medical-app .split>section:last-child {
+  padding-left: 16px;
+}
+
+.medical-app .status-line {
+  color: var(--orange);
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+/* ---------- Tab chỉ định ---------- */
+.medical-app .orders {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 14px;
+}
+
+.medical-app .orders__side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.medical-app .phieu-card {
+  display: grid;
+  text-align: left;
+  gap: 2px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--blue);
+  color: #fff;
+}
+
+.medical-app .phieu-card b {
+  font-size: 14px;
+}
+
+.medical-app .phieu-card.is-active {
+  box-shadow: 0 0 0 3px #a9d0ff;
+}
+
+.medical-app .actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.medical-app .actions--between {
+  justify-content: space-between;
+}
+
+/* ---------- Dropdown (menu In) ---------- */
+.medical-app .dropdown {
+  position: relative;
+}
+
+.medical-app .dropdown__panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  z-index: 60;
+  width: 340px;
+  max-height: 60vh;
+  overflow: auto;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  box-shadow: 0 10px 28px rgba(20, 40, 80, .2);
+}
+
+.medical-app .dropdown__panel--right {
+  right: 0;
+}
+
+.medical-app .dropdown__panel ul {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+.medical-app .dropdown__panel li button {
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  border: 0;
+  background: transparent;
+  border-radius: 4px;
+}
+
+.medical-app .dropdown__panel li button:hover {
+  background: #eaf3ff;
+}
+
+.medical-app .dropdown__header {
+  padding: 10px 10px 4px;
+  font-weight: 700;
+  color: var(--blue-deep);
+}
+
+/* ---------- Modal ---------- */
+.medical-app .modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 30, 55, .45);
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  z-index: 1000;
+}
+
+.medical-app .modal {
+  display: flex;
+  flex-direction: column;
+  width: min(1500px, 100%);
+  height: 100%;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
+}
+
+.medical-app .modal__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.medical-app .modal__head h2 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.medical-app .modal__body {
+  flex: 1;
+  overflow: auto;
+  padding: 0 0 12px;
+}
+
+.medical-app .modal-toolbar {
+  display: flex;
+  align-items: stretch;
+  background: var(--blue-soft);
+  border-bottom: 1px solid var(--line-strong);
+  padding: 6px 10px;
+  gap: 12px;
+}
+
+.medical-app .modal-toolbar__buttons {
+  display: flex;
+}
+
+.medical-app .modal-toolbar .patient-head {
+  margin-left: auto;
+  padding-top: 2px;
+}
+
+.medical-app .tool {
+  display: grid;
+  place-items: center;
+  gap: 2px;
+  min-width: 76px;
+  padding: 6px 10px;
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-left-width: 0;
+  color: #1f3a5f;
+  font-size: 13px;
+}
+
+.medical-app .tool:first-child {
+  border-left-width: 1px;
+  border-radius: 6px 0 0 6px;
+}
+
+.medical-app .tool:last-child {
+  border-radius: 0 6px 6px 0;
+}
+
+.medical-app .tool i {
+  font-style: normal;
+  font-size: 17px;
+  color: var(--blue);
+}
+
+.medical-app .tool--danger i {
+  color: var(--red);
+}
+
+.medical-app .tool--ok i {
+  color: var(--green);
+}
+
+.medical-app .tool:hover:not(:disabled) {
+  background: #f0f6ff;
+}
+
+.medical-app .tool:disabled {
+  background: #eef1f6;
+  color: var(--disabled);
+}
+
+.medical-app .tool:disabled i {
+  color: var(--disabled);
+}
+
+.medical-app .modal-toolbar .dropdown .tool {
+  border-radius: 0 6px 6px 0;
+  border-left-width: 0;
+  height: 100%;
+}
+
+/* ---------- Phiếu điều trị ---------- */
+.medical-app .phieu-layout {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 14px;
+  padding: 12px;
+}
+
+.medical-app .phieu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.medical-app .phieu-item {
+  display: grid;
+  gap: 2px;
+  text-align: left;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.medical-app .phieu-item.is-selected {
+  background: var(--yellow-soft);
+  border-color: #e2c94c;
+}
+
+.medical-app .phieu-item.is-new {
+  background: var(--ok-bg);
+  border-color: #2fb52f;
+}
+
+.medical-app .phieu-item:disabled:not(.is-selected):not(.is-new) {
+  opacity: .6;
+}
+
+.medical-app .phieu-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.medical-app .phieu-form .field__label {
+  min-width: 84px;
+  text-align: right;
+}
+
+.medical-app .vitals {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 18px;
+}
+
+.medical-app .vitals__wide {
+  grid-column: span 3;
+}
+
+.medical-app .drug-panel.is-disabled {
+  opacity: .65;
+}
+
+.medical-app .drug-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px 12px;
+  margin-bottom: 10px;
+}
+
+.medical-app .drug-form label {
+  display: grid;
+  gap: 2px;
+  font-size: 13px;
+  color: #4a5563;
+}
+
+.medical-app .drug-form .grow {
+  flex: 1 1 220px;
+}
+
+.medical-app .stct {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ---------- Chỉ định dịch vụ ---------- */
+.medical-app .order-top {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 110px;
+  gap: 14px;
+  padding: 12px 12px 0;
+}
+
+.medical-app .order-top .field {
+  align-items: flex-start;
+}
+
+.medical-app .order-top .field__label {
+  min-width: 100px;
+}
+
+.medical-app .order-top__right {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+
+.medical-app .order-form {
+  padding: 0 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.medical-app .order-form .section-title {
+  margin: 0;
+}
+
+.medical-app .grid--edit {
+  display: grid;
+  gap: 8px;
+}
+
+.medical-app .grid--edit .field {
+  margin: 0;
+}
+
+.medical-app .grid--edit .field__label {
+  min-width: 88px;
+}
+
+.medical-app .grid--edit .field {
+  flex-wrap: nowrap;
+}
+
+.medical-app .order-main {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 14px;
+  padding: 12px;
+}
+
+.medical-app .order-cats {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding-bottom: 8px;
+  align-self: start;
+}
+
+.medical-app .order-cats .tab-head {
+  display: inline-block;
+  padding: 8px 20px;
+  background: var(--blue);
+  color: #fff;
+  border-radius: 6px 6px 0 0;
+}
+
+.medical-app .order-cats ul {
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+}
+
+.medical-app .order-cats li button {
+  width: 100%;
+  text-align: left;
+  padding: 6px 12px;
+  border: 0;
+  background: transparent;
+  border-radius: 4px;
+}
+
+.medical-app .order-cats li button:hover {
+  background: #eef4fd;
+}
+
+.medical-app .order-cats li button.is-active {
+  background: #dfeafb;
+  font-weight: 600;
+}
+
+.medical-app .order-catalog {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  align-content: start;
+}
+
+.medical-app .pager {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+}
+
+.medical-app .modal__body>.table-wrap {
+  margin: 0 12px;
+}
+
+.medical-app .modal__body>.section-title--sm {
+  padding: 0 12px;
+}
+
+.medical-app .order-form .range>span,
+.medical-app .grid--edit .field>span {
+  white-space: nowrap;
+}
+
+.medical-app .drug-form label>span {
+  display: block;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  .medical-app .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .medical-app .grid--5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .medical-app .span-5 {
+    grid-column: span 2;
+  }
+
+  .medical-app .split,
+  .medical-app .orders,
+  .medical-app .phieu-layout,
+  .medical-app .order-main,
+  .medical-app .order-top {
+    grid-template-columns: 1fr;
+  }
+
+  .medical-app .split>section:first-child {
+    border-right: 0;
+    padding-right: 0;
+  }
+}
+
+@media print {
+
+  .medical-app .topbar,
+  .medical-app .toolbar,
+  .medical-app .sidebar,
+  .medical-app .dropdown__panel {
+    display: none !important;
+  }
+}

@@ -4,9 +4,10 @@ import LoginPage from "../pages/Auth/LoginPage";
 import RegisterPage from "../pages/Auth/RegisterPage";
 import ForgotPasswordPage from "../pages/Auth/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/Auth/ResetPasswordPage";
-import HomePage from "../pages/HomePage";
 import MainLayout from "../layout/MainLayout";
 import { useAuth } from "../context/AuthContext";
+
+import MedicalRecordPage from "../pages/MedicalRecordPage";
 
 function PublicOnlyRoute({ children }) {
     const { user, loading } = useAuth();
@@ -37,7 +38,7 @@ function AppRoutes() {
             <Route path="/reset-password" element={<ResetPasswordPage />} />
 
             <Route element={<MainLayout />}>
-                <Route path="/home" element={<HomePage />} />
+                <Route path="/home" element={<MedicalRecordPage />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/" replace />} />

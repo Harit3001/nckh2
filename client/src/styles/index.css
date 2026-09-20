@@ -3,6 +3,7 @@
 @import "./register.css";
 @import "./forgotpassword.css";
 @import "./resetpassword.css";
+@import "./medical.css";
 
 .app-layout {
     min-height: 100vh;

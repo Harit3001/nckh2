@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAccount, useConnect, useSignTypedData } from "wagmi";
-import Login from "../../components/Login.jsx";
+import LoginForm from "../../components/auth/LoginForm.jsx";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { EIP712_DOMAIN, EIP712_TYPES, PRIMARY_TYPE } from "../../config/web3.js";
 import { getAddress } from "viem";
@@ -149,7 +149,7 @@ export default function LoginPage() {
                 message: "",
             });
 
-            let walletAddress = getAddress(wallet);
+            let walletAddress = address ? getAddress(address) : "";
 
             if (!isConnected || !walletAddress) {
                 walletAddress = await connectWallet();
@@ -233,7 +233,7 @@ export default function LoginPage() {
     };
 
     return (
-        <Login
+        <LoginForm
             email={email}
             password={password}
             errors={errors}

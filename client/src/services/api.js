@@ -1,4 +1,4 @@
-export const API_URL = "https://work-flow-production-a826.up.railway.app";
+export const API_URL = import.meta.env.VITE_API_URL || "https://work-flow-production-a826.up.railway.app";
 export const API_BASE = API_URL;
 
 export const getAccessToken = () => localStorage.getItem("accessToken");
@@ -37,7 +37,7 @@ export async function apiFetch(endpoint, options = {}, isRetry = false) {
       ...options,
       headers,
     });
-  } catch (err) {
+  } catch {
     throw new Error("Không thể kết nối đến máy chủ backend (" + API_BASE + "). Vui lòng kiểm tra lại mạng!");
   }
 
